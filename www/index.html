@@ -30,6 +30,9 @@
           <div ng-controller="UploadCtrl">
               <input type="file" ng-file-select="onFileSelect($files)" multiple>
           </div>
+          <div ng-controller="DownloadController">
+              <button ng-click="download()">Donwload file</button>
+          </div>
       </ion-content>
     </ion-pane>
   </body>

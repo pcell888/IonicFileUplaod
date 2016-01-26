@@ -56,4 +56,39 @@ angular.module('starter', ['ionic', 'angularFileUpload'])
         $scope.abortUpload = function (index) {
             $scope.upload[index].abort();
         }
+    })
+
+
+    .controller('DownloadController', function ($scope, $http, $timeout, $upload) {
+
+        $scope.download = function () {
+            debugger;
+            $http({ method: 'GET', url: 'https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/download' }).success(function (data, status, headers, config) {
+                var anchor = angular.element('<a/>');
+                anchor.attr({
+                    href: 'data:attachment/mp3;charset=utf-8,' + encodeURI(data),
+                    target: '_blank',
+                    download: 'filename.mp3'
+                })[0].click();
+
+            }).error(function (data, status, headers, config) {
+                // if there's an error you should see it here
+                console.log(data);
+            });
+
+
+
+            //window.location.href = 'https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/download';
+            //$http({
+            //    method: 'POST',
+            //    url: 'https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/download'
+            //}).then(function successCallback(response) {
+            //    console.log(response)
+            //    // this callback will be called asynchronously
+            //    // when the response is available
+            //}, function errorCallback(response) {
+            //    // called asynchronously if an error occurs
+            //    // or server returns response with an error status.
+            //});
+        }
     });
