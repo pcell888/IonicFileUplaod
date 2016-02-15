@@ -5,23 +5,23 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'angularFileUpload'])
 
-.run(function ($ionicPlatform) {
-    $ionicPlatform.ready(function () {
-        if (window.cordova && window.cordova.plugins.Keyboard) {
-            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-            // for form inputs)
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    .run(function ($ionicPlatform) {
+        $ionicPlatform.ready(function () {
+            if (window.cordova && window.cordova.plugins.Keyboard) {
+                // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+                // for form inputs)
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-            // Don't remove this line unless you know what you are doing. It stops the viewport
-            // from snapping when text inputs are focused. Ionic handles this internally for
-            // a much nicer keyboard experience.
-            cordova.plugins.Keyboard.disableScroll(true);
-        }
-        if (window.StatusBar) {
-            StatusBar.styleDefault();
-        }
-    });
-})
+                // Don't remove this line unless you know what you are doing. It stops the viewport
+                // from snapping when text inputs are focused. Ionic handles this internally for
+                // a much nicer keyboard experience.
+                cordova.plugins.Keyboard.disableScroll(true);
+            }
+            if (window.StatusBar) {
+                StatusBar.styleDefault();
+            }
+        });
+    })
     .controller('UploadCtrl', function ($scope, $http, $timeout, $upload) {
 
         $scope.upload = [];
@@ -62,21 +62,53 @@ angular.module('starter', ['ionic', 'angularFileUpload'])
     .controller('DownloadController', function ($scope, $http, $timeout, $upload) {
 
         $scope.download = function () {
-
-
-            $http({
-                method: 'GET',
-                url: 'https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/download',
-                headers: {
-                    'Content-Type': 'audio/mpeg'
-                }
-            }).then(function (result) {
-                console.log(result);
-            }, function (error) {
-                console.log(error);
-            });
-
             debugger;
+            // $http({
+            //     method: 'GET',
+            //     url: 'https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/download',
+            //     headers: {
+            //         //'Accept': 'audio/mpeg',
+            //         'Accept': 'application/json',
+            //        // 'Content-Disposition': 'attachment; filename=foo.mp3'
+            //     },
+            //     responseType: 'arraybuffer'
+            // }).then(function (data, status, headers, config) {
+            //     var blob = new Blob([data], { type: "audio/mpeg" });
+            //     var objectUrl = URL.createObjectURL(blob);
+            //     console.log('Success' + objectUrl);
+            //     window.open(objectUrl);
+            // }, function (error) {
+            //     console.log(error);
+            // });
+            
+            
+            $http({
+                method: 'get',
+                responseType: 'arraybuffer',
+                //url: 'https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/download'
+                url: "https://ringblob.blob.core.windows.net/ringtones/MyTone%20-16.%20The%20Weeknd%20-%20Can't%20Feel%20My%20Face.mp3",
+            }).then(function successCallback(response) {
+                // this callback will be called asynchronously
+                console.log(response);
+
+                var blob = new Blob([response.data], {
+                    type: 'application/json'
+                });
+                var blobURL = (window.URL || window.webkitURL).createObjectURL(blob);
+                var anchor = document.createElement("a");
+                anchor.download = "MyTone -16. The Weeknd - Can't Feel My Face.mp3";
+                anchor.href = blobURL;
+                anchor.click();
+                // when the response is available
+            }, function errorCallback(response) {
+                console.log(response);
+     
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+            
+            
+            //window.location.href = 'https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/download';
             //$http({ method: 'GET', url: 'https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/download' }).success(function (data, status, headers, config) {
             //    //var anchor = angular.element('<a/>');
             //    //anchor.attr({

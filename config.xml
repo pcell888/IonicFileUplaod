@@ -9,6 +9,7 @@
     </author>
   <content src="index.html"/>
   <access origin="*"/>
+  <access origin="https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net"/>
   <allow-navigation href="http://*/*" />
   <allow-navigation href="https://*/*" />
   <allow-navigation href="data:*" />
