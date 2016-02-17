@@ -137,4 +137,18 @@ angular.module('starter.controllers', [])
                     });
             }, false);
         }
+
+        $scope.settone = function () {
+            var targetPath = cordova.file.externalDataDirectory + $scope.tone;
+            window.ringtone.setRingtone(targetPath,
+                $scope.tone, null,"ringtone", 
+                //$scope.tone, "Myself", "notification", 
+                //$scope.tone, "", "alarm",
+                function (success) {
+                    alert('Your Ringtone has been successfully changed');
+                },
+                function (err) {
+                    alert(err);
+                })
+        }
     });

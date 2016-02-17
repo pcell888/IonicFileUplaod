@@ -45,4 +45,5 @@
     </platform>
     <plugin name="cordova-plugin-file-opener2" spec="https://github.com/pwlin/cordova-plugin-file-opener2.git" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.5.0" />
+    <plugin name="com.hiraqui.ringtone" spec="~0.6.1" />
 </widget>
