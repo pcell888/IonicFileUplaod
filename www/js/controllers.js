@@ -81,8 +81,23 @@ angular.module('starter.controllers', [])
             $scope.upload[index].abort();
         }
     })
-    .controller('PlaylistCtrl', function ($scope, $location, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
+    .controller('PlaylistCtrl', function ($scope,$http, $location,$state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
         $scope.tone = $location.path().split("/").pop();
+        $scope.delete = function () {
+            debugger;
+            $ionicLoading.show();
+            $http({
+                method: 'DELETE',
+                url: "https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/tone?name=" + $scope.tone
+            }).then(function successCallback(response) {
+                $ionicLoading.hide();
+                $state.go('app.playlists');
+            }, function errorCallback(response) {
+                $ionicLoading.hide();
+                $state.go('app.playlists');
+            });
+            
+        }
         $scope.download = function () {
             debugger;
             $ionicLoading.show();
