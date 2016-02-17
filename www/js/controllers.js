@@ -91,6 +91,13 @@ angular.module('starter.controllers', [])
     })
     .controller('PlaylistCtrl', function ($scope, $http, $location, $state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
         $scope.tone = $location.path().split("/").pop();
+        $scope.isDisable = true;
+        $cordovaFile.checkFile(cordova.file.externalDataDirectory, $scope.tone)
+            .then(function (success) {
+                $scope.isDisable = false;
+            }, function (error) {
+            });
+
         $scope.delete = function () {
             debugger;
             $ionicLoading.show();
@@ -119,11 +126,13 @@ angular.module('starter.controllers', [])
                 $cordovaFile.checkFile(cordova.file.externalDataDirectory, $scope.tone)
                     .then(function (success) {
                         $ionicLoading.hide();
+                        $scope.isDisable = false;
                         $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { }, function (err) { });
                     }, function (error) {
                         $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
                             .then(function (result) {
                                 $ionicLoading.hide();
+                                $scope.isDisable = false;
                                 $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { }, function (err) { });
                             }, function (err) {
                                 console.log('Error');
@@ -136,12 +145,13 @@ angular.module('starter.controllers', [])
                             });
                     });
             }, false);
+
         }
 
         $scope.settone = function () {
             var targetPath = cordova.file.externalDataDirectory + $scope.tone;
             window.ringtone.setRingtone(targetPath,
-                $scope.tone, null,"ringtone", 
+                $scope.tone, null, "ringtone", 
                 //$scope.tone, "Myself", "notification", 
                 //$scope.tone, "", "alarm",
                 function (success) {
