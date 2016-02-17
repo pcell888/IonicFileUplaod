@@ -1,12 +1,4 @@
 {
-  "name": "freshuplaod",
-  "app_id": "",
-  "gulpStartupTasks": [
-    "sass",
-    "watch"
-  ],
-  "watchPatterns": [
-    "www/**/*",
-    "!www/lib/**/*"
-  ]
+  "name": "RingToneZZ",
+  "app_id": ""
 }
