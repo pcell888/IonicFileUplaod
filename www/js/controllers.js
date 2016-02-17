@@ -41,18 +41,24 @@ angular.module('starter.controllers', [])
         };
     })
 
-    .controller('PlaylistsCtrl', function ($scope, Items, $firebaseObject) {
+    .controller('PlaylistsCtrl', function ($scope, $ionicLoading, Items, $firebaseObject) {
         $scope.playlists = Items;
-        $scope.download = function (ring) {
-            alert(ring);
-        }
+        $scope.playlists.$loaded()
+            .then(function () {
+                $scope.showMask = true;
+            })
+            .catch(function (err) {
+                console.error(err);
+                $scope.showMask = false;
+            });
     })
-    .controller('BrowseCtrl', function ($scope, $http, $timeout, $upload, $cordovaFileTransfer, $ionicPlatform, $cordovaFileOpener2) {
+    .controller('BrowseCtrl', function ($scope, $ionicLoading, $state, $http, $timeout, $upload, $cordovaFileTransfer, $ionicPlatform, $cordovaFileOpener2) {
         $scope.upload = [];
         $scope.fileUploadObj = { testString1: "Test string 1", testString2: "Test string 2" };
 
         $scope.onFileSelect = function ($files) {
             debugger;
+            $ionicLoading.show();
             //$files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < $files.length; i++) {
                 var $file = $files[i];
@@ -67,12 +73,14 @@ angular.module('starter.controllers', [])
                         console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                     }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
+                        $ionicLoading.hide();
                         console.log('Success');
-                        console.log(data);
+                        $state.go('app.playlists');
                     }).error(function (data, status, headers, config) {
                         // file failed to upload
                         console.log('Failure');
-                        console.log(data);
+                        $ionicLoading.hide();
+                        $state.go('app.playlists');
                     });
                 })(i);
             }
@@ -81,7 +89,7 @@ angular.module('starter.controllers', [])
             $scope.upload[index].abort();
         }
     })
-    .controller('PlaylistCtrl', function ($scope,$http, $location,$state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
+    .controller('PlaylistCtrl', function ($scope, $http, $location, $state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
         $scope.tone = $location.path().split("/").pop();
         $scope.delete = function () {
             debugger;
@@ -96,7 +104,7 @@ angular.module('starter.controllers', [])
                 $ionicLoading.hide();
                 $state.go('app.playlists');
             });
-            
+
         }
         $scope.download = function () {
             debugger;
