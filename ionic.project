@@ -1,4 +1,12 @@
 {
   "name": "RingToneZZ",
-  "app_id": ""
+  "app_id": "bb6b9a78",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

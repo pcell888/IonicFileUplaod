@@ -89,7 +89,7 @@ angular.module('starter.controllers', [])
             $scope.upload[index].abort();
         }
     })
-    .controller('PlaylistCtrl', function ($scope, $http, $location, $state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
+    .controller('PlaylistCtrl', function ($scope, $ionicActionSheet, $http, $location, $state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
         $scope.tone = $location.path().split("/").pop();
         $scope.isDisable = true;
         $scope.lblDownload = "Download Ringtone";
@@ -99,6 +99,21 @@ angular.module('starter.controllers', [])
                 $scope.lblDownload = "Play Ringtone";
             }, function (error) {
             });
+
+        $scope.showringmodal = function () {
+
+            $ionicActionSheet.show({
+                buttons: [
+                    { text: '<i class="icon ion-share"></i> Set RingTone' },
+                    { text: '<i class="icon ion-share"></i> Set Notification ' },
+                    { text: '<i class="icon ion-share"></i> Set Alarm' },
+                ],
+                buttonClicked: function (index) {
+                    $scope.settone(index);
+                    return true;
+                }
+            });
+        };
 
         $scope.delete = function () {
             debugger;
@@ -128,16 +143,16 @@ angular.module('starter.controllers', [])
                 $cordovaFile.checkFile(cordova.file.externalDataDirectory, $scope.tone)
                     .then(function (success) {
                         $ionicLoading.hide();
-                        $scope.isDisable = false; 
+                        $scope.isDisable = false;
                         $scope.lblDownload = "Play Ringtone";
-                        $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { $ionicLoading.hide();}, function (err) { $ionicLoading.hide();});
+                        $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { $ionicLoading.hide(); }, function (err) { $ionicLoading.hide(); });
                     }, function (error) {
                         $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
                             .then(function (result) {
                                 $ionicLoading.hide();
-                                $scope.isDisable = false; 
+                                $scope.isDisable = false;
                                 $scope.lblDownload = "Play Ringtone";
-                                $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { $ionicLoading.hide();}, function (err) { $ionicLoading.hide();});
+                                $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { $ionicLoading.hide(); }, function (err) { $ionicLoading.hide(); });
                             }, function (err) {
                                 console.log('Error');
                                 $ionicLoading.hide();
@@ -152,15 +167,23 @@ angular.module('starter.controllers', [])
 
         }
 
-        $scope.settone = function () {
+        $scope.settone = function (index) {
+            debugger;
             var targetPath = cordova.file.externalDataDirectory + $scope.tone;
-            window.ringtone.setRingtone(targetPath,
-                $scope.tone, null, "ringtone", 
-                //$scope.tone, "Myself", "notification", 
-                //$scope.tone, "", "alarm",
-                function (success) {
-                    alert('Your Ringtone has been successfully changed');
-                },
+            switch (index) {
+                case 1:
+                    var self = "Myself", type = "notification";
+                    break;
+                case 2:
+                    var self = "", type = "alarm";
+                    break;
+                default:
+                    var self = null, type = "ringtone";
+                    break;
+            }
+            window.ringtone.setRingtone(targetPath, $scope.tone, self, type, function (success) {
+                alert('Your Ringtone has been successfully changed');
+            },
                 function (err) {
                     alert(err);
                 })
