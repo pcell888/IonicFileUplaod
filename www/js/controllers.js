@@ -92,9 +92,11 @@ angular.module('starter.controllers', [])
     .controller('PlaylistCtrl', function ($scope, $http, $location, $state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
         $scope.tone = $location.path().split("/").pop();
         $scope.isDisable = true;
+        $scope.lblDownload = "Download Ringtone";
         $cordovaFile.checkFile(cordova.file.externalDataDirectory, $scope.tone)
             .then(function (success) {
                 $scope.isDisable = false;
+                $scope.lblDownload = "Play Ringtone";
             }, function (error) {
             });
 
@@ -126,14 +128,16 @@ angular.module('starter.controllers', [])
                 $cordovaFile.checkFile(cordova.file.externalDataDirectory, $scope.tone)
                     .then(function (success) {
                         $ionicLoading.hide();
-                        $scope.isDisable = false;
-                        $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { }, function (err) { });
+                        $scope.isDisable = false; 
+                        $scope.lblDownload = "Play Ringtone";
+                        $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { $ionicLoading.hide();}, function (err) { $ionicLoading.hide();});
                     }, function (error) {
                         $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
                             .then(function (result) {
                                 $ionicLoading.hide();
-                                $scope.isDisable = false;
-                                $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { }, function (err) { });
+                                $scope.isDisable = false; 
+                                $scope.lblDownload = "Play Ringtone";
+                                $cordovaFileOpener2.open(targetPath, 'audio/mpeg').then(function () { $ionicLoading.hide();}, function (err) { $ionicLoading.hide();});
                             }, function (err) {
                                 console.log('Error');
                                 $ionicLoading.hide();
