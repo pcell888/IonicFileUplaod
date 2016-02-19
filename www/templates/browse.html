@@ -1,8 +1,31 @@
-<ion-view view-title="Upload">
+<ion-view view-title="Request Ringtone">
     <ion-content>
-        <h1>Upload File</h1>
-        <div>
-            <input type="file" ng-file-select="onFileSelect($files)" multiple>
+        <div class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Name</span>
+                <input type="text" ng-model="fileUploadObj.Name" placeholder="Name">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Number</span>
+                <input type="text" ng-model="fileUploadObj.Number" placeholder="Number">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Email</span>
+                <input type="text" ng-model="fileUploadObj.Email" placeholder="Email">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Comments</span>
+                <textarea placeholder="Comments" ng-model="fileUploadObj.Comments" placeholder="Email"></textarea>
+            </label>
         </div>
+        <button ng-click="uploadfile()" class="button button-block button-dark icon ion-filing">
+            Browse File
+        </button>
+        <div>
+            <input type="file" id="fileUpload" ng-hide="true" ng-file-select="onFileSelect($files)" multiple>
+        </div>
+        <button ng-click="submitForm()" class="button button-block button-positive">
+            Submit
+        </button>
     </ion-content>
 </ion-view>

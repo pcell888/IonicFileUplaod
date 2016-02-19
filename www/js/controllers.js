@@ -54,10 +54,22 @@ angular.module('starter.controllers', [])
     })
     .controller('BrowseCtrl', function ($scope, $ionicLoading, $state, $http, $timeout, $upload, $cordovaFileTransfer, $ionicPlatform, $cordovaFileOpener2) {
         $scope.upload = [];
-        $scope.fileUploadObj = { testString1: "Test string 1", testString2: "Test string 2" };
 
+        $scope.fileUploadObj = {
+            Name: undefined,
+            Number: undefined,
+            Email: undefined,
+            Comments: undefined
+        };
+
+        $scope.uploadfile = function () {
+            ionic.trigger('click', { target: document.getElementById('fileUpload') });
+        }
         $scope.onFileSelect = function ($files) {
-            debugger;
+            $scope.file = $files;
+        };
+        $scope.submitForm = function ($files) {
+            $files = $scope.file;
             $ionicLoading.show();
             //$files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < $files.length; i++) {
