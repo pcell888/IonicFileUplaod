@@ -1,10 +1,24 @@
-<ion-view view-title="Playlists">
+<ion-view view-title="Ringtones">
+    <div class="bar bar-header">
+        <button class="button button-icon icon ion-navicon"></button>
+        <div class="h1 title">Header Buttons</div>
+        <button class="button button-clear button-positive">Edit</button>
+    </div>
     <ion-content>
+
+
         <ion-list>
             <h2 ng-hide="showMask">Loading latest ringtones... </h2>
-            <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.name}}">
+
+
+            <a class="item item-icon-left" ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.name}}">
+                <i class="icon ion-music-note"></i> {{playlist.name}}
+                <span class="item-note"> <!-- Grammy --> </span>
+            </a>
+
+            <!--<ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.name}}">
                 {{playlist.name}}
-            </ion-item>
+            </ion-item>-->
         </ion-list>
     </ion-content>
 </ion-view>

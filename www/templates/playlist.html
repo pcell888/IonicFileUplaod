@@ -1,15 +1,16 @@
-<ion-view view-title="Playlist">
+<ion-view view-title="RingTone">
     <ion-content>
         <h1>{{tone}}</h1>
         <button ng-click="download()" class="button ion-play icon-right button-full button-positive">
             {{lblDownload}}
         </button>
-        <button ng-click="delete()" class="button ion-ios-trash icon-right button-full button-assertive">
+        <button ng-click="delete()" 
+        ng-hide="true" 
+        class="button ion-ios-trash icon-right button-full button-assertive">
             Delete Tone
         </button>
         <button ng-disabled="isDisable" ng-click="showringmodal()" class="button ion-ios-trash icon-right button-full button-calm">
             Set Ring As ...
         </button>
     </ion-content>
-
 </ion-view>

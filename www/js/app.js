@@ -1,5 +1,10 @@
-angular.module('starter', ['ionic', 'firebase', 'starter.controllers','ngCordova', 'angularFileUpload'])
-
+angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'ngCordova', 'angularFileUpload'])
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+        $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.tabs.style('standard');
+        $ionicConfigProvider.navBar.alignTitle('center');
+        //$ionicConfigProvider.backButton.previousTitleText('go back');
+    })
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -45,7 +50,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers','ngCordova
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/browse.html',
-                        controller:'BrowseCtrl'
+                        controller: 'BrowseCtrl'
                     }
                 }
             })
