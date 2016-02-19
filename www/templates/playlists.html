@@ -1,6 +1,6 @@
 <ion-view view-title="Ringtones">
     <ion-content>
-        <div class="bar bar-header item-input-inset">
+        <div ng-hide="!showMask" class="bar bar-header item-input-inset">
             <label class="item-input-wrapper">
                 <i class="icon ion-ios-search placeholder-icon"></i>
                 <input type="search" ng-model="searchtxt.$" placeholder="Search">
@@ -11,14 +11,15 @@
         </div>
 
         <ion-list>
-            <h2 ng-hide="showMask">Loading latest ringtones... </h2>
+            <div class="card" ng-hide="showMask">
+                <div class="item item-text-wrap">
+                    <h1>Loading latest ringtones... </h1>
+                </div>
+            </div>
             <a class="item item-icon-left" ng-repeat="playlist in playlists | filter:searchtxt:strict" href="#/app/playlists/{{playlist.name}}">
                 <i class="icon ion-music-note"></i> {{playlist.name}}
                 <span class="item-note"> <!-- Grammy --> </span>
             </a>
-            <!--<ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.name}}">
-                {{playlist.name}}
-            </ion-item>-->
         </ion-list>
     </ion-content>
 </ion-view>

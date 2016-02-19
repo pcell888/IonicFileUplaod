@@ -18,13 +18,13 @@
                 <textarea placeholder="Comments" ng-model="fileUploadObj.Comments" placeholder="Email"></textarea>
             </label>
         </div>
-        <button ng-click="uploadfile()" class="button button-block button-dark icon ion-filing">
+        <button ng-click="uploadfile()" class="button button-full button-dark icon ion-filing">
             Browse File
         </button>
         <div>
             <input type="file" id="fileUpload" ng-hide="true" ng-file-select="onFileSelect($files)" multiple>
         </div>
-        <button ng-click="submitForm()" class="button button-block button-positive">
+        <button ng-click="submitForm()" class="button button-full button-positive">
             Submit
         </button>
     </ion-content>
