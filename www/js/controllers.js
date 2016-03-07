@@ -101,6 +101,16 @@ angular.module('starter.controllers', [])
             $scope.upload[index].abort();
         }
     })
+
+    .controller('CatCtrl', function ($scope, $ionicActionSheet, $http, $location, $state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
+        $scope.categories = [
+            { name: 'Bollywood' },
+            { name: 'Hollywood' },
+            { name: 'Romantic' },
+            { name: 'Movie' },
+            { name: 'Song' }
+        ]
+    })
     .controller('PlaylistCtrl', function ($scope, $ionicActionSheet, $http, $location, $state, $stateParams, $cordovaFile, $cordovaFileTransfer, $cordovaFileOpener2, $timeout, $ionicLoading) {
         $scope.tone = $location.path().split("/").pop();
         $scope.isDisable = true;

@@ -40,7 +40,8 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'ngCordov
                 url: '/search',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/search.html'
+                        templateUrl: 'templates/search.html',
+                        controller:'CatCtrl'
                     }
                 }
             })

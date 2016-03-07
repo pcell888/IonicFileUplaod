@@ -1,5 +1,9 @@
 <ion-view view-title="Categories">
     <ion-content>
-        <h1>Search</h1>
+        <ion-list>
+            <a class="item item-icon-left" ng-repeat="category in categories" href="#/app/playlists?id={{category.name}}">
+                <i class="icon ion-music-note"></i> {{category.name}}
+            </a>
+        </ion-list>
     </ion-content>
 </ion-view>
