@@ -71,12 +71,12 @@ angular.module('starter.controllers', [])
         $scope.submitForm = function ($files) {
             $files = $scope.file;
             $ionicLoading.show();
-            //$files: an array of files selected, each file has name, size, and type.
+            //$files: an array of files selected, each file has name, size, and type AdminFile.
             for (var i = 0; i < $files.length; i++) {
                 var $file = $files[i];
                 (function (index) {
                     $scope.upload[index] = $upload.upload({
-                        url: "https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/files/upload", // webapi url
+                        url: "https://microsoft-apiapp55759bba47b74474bffa45d9538d840b.azurewebsites.net/api/files", // webapi url
                         method: "POST",
                         data: { fileUploadObj: $scope.fileUploadObj },
                         file: $file
@@ -88,6 +88,7 @@ angular.module('starter.controllers', [])
                         $ionicLoading.hide();
                         console.log('Success');
                         $state.go('app.playlists');
+                        $scope.fileUploadObj = "";
                     }).error(function (data, status, headers, config) {
                         // file failed to upload
                         console.log('Failure');
